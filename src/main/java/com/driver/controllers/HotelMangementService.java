@@ -12,8 +12,7 @@ import java.util.*;
 @Service
 public class HotelMangementService {
 
-    @Autowired
-    HotelManagementRepo hotelManagementRepo;
+    HotelManagementRepo hotelManagementRepo = new HotelManagementRepo();
     public boolean addHotel(Hotel hotel) {
         HashMap<String, Hotel> hotelList = hotelManagementRepo.getHotelMap();
         if(hotelList.keySet().contains(hotel.getHotelName())) return false;
