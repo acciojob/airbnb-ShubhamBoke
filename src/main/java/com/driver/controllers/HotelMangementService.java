@@ -14,6 +14,7 @@ public class HotelMangementService {
 
     HotelManagementRepo hotelManagementRepo = new HotelManagementRepo();
     public boolean addHotel(Hotel hotel) {
+        if(hotel == null || hotel.getHotelName() == null) return false;
         HashMap<String, Hotel> hotelList = hotelManagementRepo.getHotelMap();
         if(hotelList.keySet().contains(hotel.getHotelName())) return false;
         hotelManagementRepo.addHotel(hotel);
@@ -49,8 +50,8 @@ public class HotelMangementService {
         HashMap<String, Hotel> hotelList = hotelManagementRepo.getHotelMap();
         HashMap<Integer, User> userList = hotelManagementRepo.getUserMap();
 
-        if(!hotelList.keySet().contains(hotelName)) return -1;
-        if(!userList.keySet().contains(aadhar) || !userList.get(aadhar).getName().equals(personName)) return -1;
+        //if(!hotelList.keySet().contains(hotelName)) return -1;
+        //if(!userList.keySet().contains(aadhar) || !userList.get(aadhar).getName().equals(personName)) return -1;
         if(hotelList.get(hotelName).getAvailableRooms() < booking.getNoOfRooms()) return -1;
 
         String id = UUID.randomUUID().toString();
@@ -67,9 +68,9 @@ public class HotelMangementService {
     }
 
     public int getBookingsCount(Integer aadharCard) {
-        HashMap<String, Booking> bookinMap = hotelManagementRepo.getBookingMap();
+        HashMap<String, Booking> bookingMap = hotelManagementRepo.getBookingMap();
         int count = 0;
-        for(Map.Entry<String, Booking> entry: bookinMap.entrySet()){
+        for(Map.Entry<String, Booking> entry: bookingMap.entrySet()){
             Booking booking = entry.getValue();
             if(booking.getBookingAadharCard() == aadharCard)
                 count++;
